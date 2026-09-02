@@ -1,0 +1,22 @@
+# Configuração do verificador de links (https://github.com/lycheeverse/lychee)
+# Uso: lychee --no-progress './**/*.md'
+#
+# Retries/concorrência reduzidos para evitar falsos positivos por rate limit
+# (sobretudo em youtube.com, com várias playlists checadas na mesma execução).
+max_retries = 6
+retry_wait_time = 8
+max_concurrency = 8
+max_redirects = 10
+accept = [200, 206, 301, 302, 303, 307, 308]
+
+# Domínios verificados manualmente nesta sessão (curl com UA de navegador real,
+# resposta HTTP 200 confirmada) mas que bloqueiam verificadores automatizados
+# (403/999, anti-bot ou rate limit) — excluídos para não gerar falso-negativo.
+# O LinkedIn responde HTTP 999 a qualquer verificador automatizado (bloqueio
+# anti-bot), mesmo com o perfil no ar.
+exclude = [
+    "^https://www\\.linkedin\\.com/",
+]
+
+[hosts."www.youtube.com"]
+concurrency = 2
